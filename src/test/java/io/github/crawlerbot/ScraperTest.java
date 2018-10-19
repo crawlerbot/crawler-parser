@@ -17,6 +17,49 @@ import java.util.Map;
 public class ScraperTest {
 
     @Test
+    public void demo() throws IOException {
+        Scraper scraper = new Scraper();
+        List<Map<String, Object>> entityList = scraper.extractTo(
+                new File(getClass().getClassLoader().getResource("demo.html").getFile())
+        );
+
+
+        System.out.println(JsonUtils.toPrettyString(entityList));
+
+//
+//        Assertions.assertEquals(1, entityList.size());
+//        Entity entity = entityList.get(0);
+
+        System.out.println("demo");
+
+
+
+//
+//        Assertions.assertEquals("{\"@context\": \"https://schema.org\",\"@type\": \"Article\",\"headline\": \"Nhận định Chelsea vs MU - Vòng 9 Ngoại hạng Anh 2018/19\",\"image\": {\"@type\": \"ImageObject\",\"url\": \"https://static.bongda24h.vn/medias/facebook/2018/10/19/thong-tin-luc-luong-doi-hinh-tran-chelsea-vs-mu.png\",\"width\": \"500px\",\"height\": \"300px\"},\"publisher\": {\"@type\": \"Organization\",\"name\": \"Bóng đá 24h\",\"logo\": {\"@type\": \"ImageObject\",\"url\": \"https://bongda24h.vn/images/logo-bongda24h.png\"}},\"keywords\": [\"Chelsea vs MU\",\"Chelsea vs MU vòng 9 Ngoại hạng Anh 2018/19\"],\"datePublished\": \"Fri, 19 Oct 2018 16:36:25 GMT\",\"dateModified\": \"Fri, 19 Oct 2018 16:36:25 GMT\",\"articleSection\": \"sport\",\"creator\": \"Bóng đá 24h\",\"author\": \"Bóng đá 24h\",\"articleBody\": \"Chelsea vs MU trong trận cầu tâm điểm vòng 9 Ngoại hạng Anh 2018/19, cùng điểm qua tình hình lực lượng, đội hình bên phía 2 đội.\n" +
+//                "\",\"mainEntityOfPage\": \"True\"}", entity.getRawEntity());
+//        assertEvent(entity.getThing());
+    }
+
+    @Test
+    public void demo2() throws IOException {
+        Scraper scraper = new Scraper();
+        List<Entity> entityList = scraper.extract(
+                new File(getClass().getClassLoader().getResource("demo.html").getFile())
+        );
+
+        Assertions.assertEquals(1, entityList.size());
+        Entity entity = entityList.get(0);
+
+        System.out.println("demo");
+
+        System.out.println(JsonUtils.toPrettyString(entity.getThing()));
+
+
+    }
+
+
+
+    @Test
     public void scraperJsonLdTest() throws IOException {
         Scraper scraper = new Scraper();
         List<Entity> entityList = scraper.extract(

@@ -3,6 +3,7 @@ package io.github.crawlerbot.extractor;
 import com.github.jsonldjava.core.JsonLdOptions;
 import com.github.jsonldjava.core.JsonLdProcessor;
 import com.github.jsonldjava.utils.JsonUtils;
+import com.google.gson.Gson;
 import io.github.crawlerbot.model.Entity;
 import com.google.schemaorg.JsonLdSerializer;
 import com.google.schemaorg.JsonLdSyntaxException;
@@ -85,7 +86,7 @@ public class JsonLdExtractor implements Extractor {
      */
     private String getElementJson(Element element) {
         try {
-            String elementHtml = element.html();
+            String elementHtml = element.html().trim();
            // LOGGER.info("start getElementJson json-ld:{}", elementHtml);
             if ((elementHtml.startsWith("{") && elementHtml.endsWith("}"))) return elementHtml;
             String result = elementHtml.substring(elementHtml.indexOf("{"), elementHtml.lastIndexOf("}") + 1);
@@ -104,8 +105,8 @@ public class JsonLdExtractor implements Extractor {
     private Map<String, Object> parseThing(Element element) {
        try {
            String elementHtml = getElementJson(element);
-          // LOGGER.info("start parsing json-ld:{}", elementHtml);
-           Object jsonObject = JsonUtils.fromString(elementHtml);
+           Gson gson = new Gson();
+           Object jsonObject = gson.fromJson(elementHtml, Object.class);
            Map context = new HashMap();
            JsonLdOptions options = new JsonLdOptions();
            Map<String, Object> compact = JsonLdProcessor.compact(jsonObject, context, options);
