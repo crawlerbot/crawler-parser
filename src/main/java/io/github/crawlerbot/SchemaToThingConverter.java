@@ -23,6 +23,9 @@ public class SchemaToThingConverter {
         try {
             // Find the type of the schema we're currently converting
             String typeName = getTypeName(schema);
+            if(typeName.equals(typeName.toLowerCase())) {
+                typeName = typeName.substring(0, 1).toUpperCase() + typeName.substring(1).toLowerCase();
+            }
             // In order to build a schema.org thing, we use builders
             // We need the class of the builder to find the method to call for settings the properties
             Class<?> builderClass = getBuilderClass(typeName);
@@ -32,6 +35,7 @@ public class SchemaToThingConverter {
              * the methods are public and can be called using reflection.
              */
             Thing.Builder thingBuilder = getBuilder(typeName);
+
             setProperties(thingBuilder, schema, builderClass);
             setChildren(thingBuilder, schema, builderClass);
 
@@ -47,7 +51,6 @@ public class SchemaToThingConverter {
 
     private static void setProperties(Thing.Builder builder, Schema schema, Class<?> builderClass)
             throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-
         // Set all the properties
         for (String propertyName : schema.getProperties().keySet()) {
             String methodName = String.format("add%s", capitalize(propertyName));
@@ -84,7 +87,8 @@ public class SchemaToThingConverter {
             IllegalAccessException {
 
         String builderName = String.format("new%sBuilder", typeName);
-        return (Thing.Builder) CoreFactory.class.getMethod(builderName).invoke(null);
+        Thing.Builder builder =  (Thing.Builder) CoreFactory.class.getMethod(builderName).invoke(null);
+        return builder;
     }
 
     /**
@@ -95,9 +99,14 @@ public class SchemaToThingConverter {
      * @throws ClassNotFoundException if the class for the specified type name does not exist
      */
     private static Class<?> getBuilderClass(String typeName) throws ClassNotFoundException {
-        String className = String.format("%s.%s$Builder", PACKAGE_SCHEMA_ORG, typeName);
-
-        return Class.forName(className);
+        try {
+            String className = String.format("%s.%s$Builder", PACKAGE_SCHEMA_ORG, typeName);
+            //className = className.substring(0,1).toUpperCase() + className.substring(1).toLowerCase();
+            return Class.forName(className);
+        }catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     private static Class<?> getInterfaceClass(String typeName) throws ClassNotFoundException {
@@ -123,6 +132,7 @@ public class SchemaToThingConverter {
      * @return the capitalized string
      */
     private static String capitalize(String name) {
+        System.out.println("capitalize:" + name);
         return name.substring(0, 1).toUpperCase() + name.substring(1);
     }
 }

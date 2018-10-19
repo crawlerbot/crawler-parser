@@ -34,6 +34,12 @@ public class Scraper {
         Document document = Jsoup.parse(file, "UTF-8");
         return scrap(document);
     }
+    public List<Map<String, Object>>  extractTo(File file) throws IOException{
+        Document document = Jsoup.parse(file, "UTF-8");
+        return extractors.stream()
+                .flatMap(extractor -> extractor.getThing(document).stream())
+                .collect(Collectors.toList());
+    }
 
     public List<Entity> extract(URL url, int timeout) throws IOException {
         Document document = Jsoup.parse(url, timeout);
@@ -41,6 +47,12 @@ public class Scraper {
     }
     public List<Map<String, Object>>  extractTo(URL url, int timeout) throws IOException {
         Document document = Jsoup.parse(url, timeout);
+        return extractors.stream()
+                .flatMap(extractor -> extractor.getThing(document).stream())
+                .collect(Collectors.toList());
+    }
+    public List<Map<String, Object>>  extractTo(String html) {
+        Document document = Jsoup.parse(html);
         return extractors.stream()
                 .flatMap(extractor -> extractor.getThing(document).stream())
                 .collect(Collectors.toList());

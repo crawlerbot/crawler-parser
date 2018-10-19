@@ -9,7 +9,9 @@ import java.util.Map;
 public class Demo {
     public static void main(String args[]) throws IOException {
         Scraper scraper = new Scraper();
-        List<Map<String, Object>> thingList = scraper.extractTo(new URL("https://www.lazada.vn/products/combo-ao-thun-be-trai-chat-lieu-mem-min-vd-i225056154-s307710790.html?spm=a2o4n.home.flashSale.4.1905e182Os10xC&search=1&mp=1"), 20000);
+        List<Map<String, Object>> thingList = scraper.extractTo(new URL("https://www.msn.com/en-ie/news/world/a-president-who-believes-he-is-entitled-to-his-own-facts/ar-BBOAvmJ?li=BBr5PkO"), 20000);
+        System.out.println("start results:=========================");
         System.out.println(JsonUtils.toPrettyString(thingList));
+        System.out.println("end results:=========================");
     }
 }

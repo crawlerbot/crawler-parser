@@ -3,6 +3,7 @@ package io.github.crawlerbot.extractor;
 import com.github.jsonldjava.core.JsonLdOptions;
 import com.github.jsonldjava.core.JsonLdProcessor;
 import com.github.jsonldjava.utils.JsonUtils;
+import com.google.schemaorg.JsonLdSerializer;
 import io.github.crawlerbot.SchemaToThingConverter;
 import io.github.crawlerbot.model.Entity;
 import io.github.crawlerbot.model.Schema;
@@ -38,11 +39,16 @@ public class MicrodataExtractor implements Extractor {
 
         return elements.stream()
                 .flatMap(element -> {
-                    Schema schema = getTree(element);
-                    Optional<Thing> optionalThing = SchemaToThingConverter.convert(schema);
-                    return optionalThing
-                            .map(thing -> Stream.of(new Entity(element.toString(), thing)))
-                            .orElseGet(Stream::empty);
+                    //try {
+                        Schema schema = getTree(element);
+                        Optional<Thing> optionalThing = SchemaToThingConverter.convert(schema);
+                        return optionalThing
+                                .map(thing -> Stream.of(new Entity(element.toString(), thing)))
+                                .orElseGet(Stream::empty);
+//                    }catch (Exception ex) {
+//                        ex.printStackTrace();
+//                       return null;
+//                    }
                 })
                 .collect(Collectors.toList());
     }
@@ -52,8 +58,10 @@ public class MicrodataExtractor implements Extractor {
         try {
             List<Entity> things = getThings(document);
             List<Map<String, Object>> results = new ArrayList<>();
+            JsonLdSerializer serializer = new JsonLdSerializer(true /* setPrettyPrinting */);
             for (Entity entity : things) {
-                Object jsonObject = JsonUtils.fromString(JsonUtils.toString(entity));
+                String jsonLdStr = serializer.serialize(entity.getThing());
+                Object jsonObject = JsonUtils.fromString(jsonLdStr);
                 Map context = new HashMap();
                 JsonLdOptions options = new JsonLdOptions();
                 Map<String, Object> compact = JsonLdProcessor.compact(jsonObject, context, options);
@@ -61,6 +69,7 @@ public class MicrodataExtractor implements Extractor {
             }
             return results;
         }catch (Exception ex) {
+            ex.printStackTrace();
             return new ArrayList<>();
         }
     }
