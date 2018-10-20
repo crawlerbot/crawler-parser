@@ -39,16 +39,16 @@ public class MicrodataExtractor implements Extractor {
 
         return elements.stream()
                 .flatMap(element -> {
-                    //try {
+                    try {
                         Schema schema = getTree(element);
                         Optional<Thing> optionalThing = SchemaToThingConverter.convert(schema);
                         return optionalThing
                                 .map(thing -> Stream.of(new Entity(element.toString(), thing)))
                                 .orElseGet(Stream::empty);
-//                    }catch (Exception ex) {
-//                        ex.printStackTrace();
-//                       return null;
-//                    }
+                    }catch (Exception ex) {
+                        ex.printStackTrace();
+                       return null;
+                    }
                 })
                 .collect(Collectors.toList());
     }
@@ -57,9 +57,11 @@ public class MicrodataExtractor implements Extractor {
     public List<Map<String, Object>> getThing(Document document) {
         try {
             List<Entity> things = getThings(document);
+
             List<Map<String, Object>> results = new ArrayList<>();
             JsonLdSerializer serializer = new JsonLdSerializer(true /* setPrettyPrinting */);
             for (Entity entity : things) {
+                System.out.println("thing=================:" + serializer.serialize(entity.getThing()));
                 String jsonLdStr = serializer.serialize(entity.getThing());
                 Object jsonObject = JsonUtils.fromString(jsonLdStr);
                 Map context = new HashMap();

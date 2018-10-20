@@ -54,8 +54,13 @@ public class SchemaToThingConverter {
         // Set all the properties
         for (String propertyName : schema.getProperties().keySet()) {
             String methodName = String.format("add%s", capitalize(propertyName));
-            Method method = builderClass.getMethod(methodName, String.class);
-            method.invoke(builder, schema.getProperties().get(propertyName).get(0));
+            System.out.println("methodName:" + methodName );
+            //if(!methodName.equals("addHeadline")) {
+                Method method = builderClass.getMethod(methodName, String.class);
+                //System.out.println("setProperties:=========" + method.toString());
+               // System.out.println("setProperties:=========" + method.getName());
+                method.invoke(builder, schema.getProperties().get(propertyName).get(0));
+            //}
         }
     }
 
@@ -133,6 +138,6 @@ public class SchemaToThingConverter {
      */
     private static String capitalize(String name) {
         System.out.println("capitalize:" + name);
-        return name.substring(0, 1).toUpperCase() + name.substring(1);
+        return name.substring(0, 1).toUpperCase() + name.substring(1).trim();
     }
 }
