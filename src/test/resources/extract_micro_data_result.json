@@ -1,0 +1,12 @@
+[ {
+  "@type" : "http://schema.org/Article",
+  "http://schema.org/dateModified" : {
+    "@type" : "http://schema.org/Date",
+    "@value" : "2018-10-13T08:58:11+00:00"
+  },
+  "http://schema.org/datePublished" : {
+    "@type" : "http://schema.org/Date",
+    "@value" : "2018-10-13T08:58:11+00:00"
+  },
+  "http://schema.org/headline" : "Đèn led bar siêu sáng lúp cầu độ đẹp và chất cho xe bán tải xe ô tô Ford Ranger"
+} ]

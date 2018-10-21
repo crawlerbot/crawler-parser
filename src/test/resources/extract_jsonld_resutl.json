@@ -1,0 +1,35 @@
+[ {
+  "@type" : "http://schema.org/Event",
+  "http://schema.org/image" : {
+    "@type" : "http://schema.org/ImageObject",
+    "http://schema.org/height" : 438.0,
+    "http://schema.org/url" : {
+      "@id" : "http://cafefcdn.com/zoom/700_438/2018/10/14/photo1539529884921-15395298849361562038225.jpg"
+    },
+    "http://schema.org/width" : 700.0
+  },
+  "http://schema.org/location" : {
+    "@type" : "http://schema.org/Place",
+    "http://schema.org/address" : {
+      "@type" : "http://schema.org/PostalAddress",
+      "http://schema.org/addressLocality" : "Denver",
+      "http://schema.org/addressRegion" : "CO",
+      "http://schema.org/postalCode" : "80209",
+      "http://schema.org/streetAddress" : "7 S. Broadway"
+    },
+    "http://schema.org/name" : "The Hi-Dive"
+  },
+  "http://schema.org/name" : "Typhoon with Radiation City",
+  "http://schema.org/offers" : {
+    "@type" : "http://schema.org/Offer",
+    "http://schema.org/price" : "13.00",
+    "http://schema.org/priceCurrency" : "USD",
+    "http://schema.org/url" : {
+      "@id" : "http://www.ticketfly.com/purchase/309433"
+    }
+  },
+  "http://schema.org/startDate" : {
+    "@type" : "http://schema.org/Date",
+    "@value" : "2013-09-14T21:30"
+  }
+} ]
