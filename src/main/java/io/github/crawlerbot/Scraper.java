@@ -1,9 +1,6 @@
 package io.github.crawlerbot;
 
-import io.github.crawlerbot.extractor.Extractor;
-import io.github.crawlerbot.extractor.JsonLdExtractor;
-import io.github.crawlerbot.extractor.MetaExtractor;
-import io.github.crawlerbot.extractor.MicrodataExtractor;
+import io.github.crawlerbot.extractor.*;
 import io.github.crawlerbot.model.Entity;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -25,6 +22,7 @@ public class Scraper {
 
     private List<Extractor> extractors;
     private MetaExtractor metaExtractor = new MetaExtractor();
+    private HtmlExtractor htmlExtractor = new HtmlExtractor();
 
     public Scraper() {
         extractors = Arrays.asList(
@@ -45,7 +43,7 @@ public class Scraper {
         Document document = Jsoup.parse(file, "UTF-8");
         return metaExtractor.extract(document);
     }
-    public List<Map<String, Object>>  extractTo(File file) throws IOException{
+    public List<Map<String, Object>>  extractSemantic(File file) throws IOException{
         Document document = Jsoup.parse(file, "UTF-8");
         return extractors.stream()
                 .flatMap(extractor -> extractor.getThing(document).stream())
@@ -56,13 +54,13 @@ public class Scraper {
         Document document = Jsoup.parse(url, timeout);
         return scrap(document);
     }
-    public List<Map<String, Object>>  extractTo(URL url, int timeout) throws IOException {
+    public List<Map<String, Object>>  extractSemantic(URL url, int timeout) throws IOException {
         Document document = Jsoup.parse(url, timeout);
         return extractors.stream()
                 .flatMap(extractor -> extractor.getThing(document).stream())
                 .collect(Collectors.toList());
     }
-    public List<Map<String, Object>>  extractTo(String html) {
+    public List<Map<String, Object>>  extractSemantic(String html) {
         Document document = Jsoup.parse(html);
         return extractors.stream()
                 .flatMap(extractor -> extractor.getThing(document).stream())

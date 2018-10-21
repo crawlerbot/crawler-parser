@@ -22,7 +22,7 @@ public class ScraperTest {
     @Test
     public void demo() throws IOException {
         Scraper scraper = new Scraper();
-        List<Map<String, Object>> entityList = scraper.extractTo(
+        List<Map<String, Object>> entityList = scraper.extractSemantic(
                 new File(getClass().getClassLoader().getResource("demo.html").getFile())
         );
 
@@ -114,7 +114,7 @@ public class ScraperTest {
     @Test
     public void scraperMicrodataTest() throws IOException {
         Scraper scraper = new Scraper();
-        List<Map<String, Object>>  entityList = scraper.extractTo(
+        List<Map<String, Object>>  entityList = scraper.extractSemantic(
                 new File(getClass().getClassLoader().getResource("microdata.html").getFile())
         );
        // Assertions.assertEquals(1, entityList.size());
