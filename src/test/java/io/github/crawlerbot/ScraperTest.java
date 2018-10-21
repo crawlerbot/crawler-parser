@@ -11,8 +11,11 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ScraperTest {
 
@@ -147,6 +150,8 @@ public class ScraperTest {
 //        assertEvent(entity.getThing());
     }
 
+
+
     @Test
     public void scraperFakeNamespaceTest() throws IOException {
         Scraper scraper = new Scraper();
@@ -187,5 +192,12 @@ public class ScraperTest {
     private void assertUniqueValue(ImmutableList<SchemaOrgType> values, String expected) {
         Assertions.assertEquals(1, values.size());
         Assertions.assertEquals(expected, ((DataType) values.get(0)).getValue());
+    }
+
+    @Test
+    public void testMetaExtract() throws IOException {
+        Scraper scraper = new Scraper();
+        Set<Map<String, List<String>>> data = scraper.extractMeta(new URL("https://kinhdoanh.vnexpress.net/tin-tuc/quoc-te/kinh-te-trung-quoc-lien-tiep-chiu-don-giang-chi-trong-vai-ngay-3826849.html"), 20000);
+        System.out.println(JsonUtils.toPrettyString(data));
     }
 }

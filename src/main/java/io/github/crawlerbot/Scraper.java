@@ -2,6 +2,7 @@ package io.github.crawlerbot;
 
 import io.github.crawlerbot.extractor.Extractor;
 import io.github.crawlerbot.extractor.JsonLdExtractor;
+import io.github.crawlerbot.extractor.MetaExtractor;
 import io.github.crawlerbot.extractor.MicrodataExtractor;
 import io.github.crawlerbot.model.Entity;
 import org.jsoup.Jsoup;
@@ -15,6 +16,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Scraper {
@@ -22,6 +24,7 @@ public class Scraper {
     private static final Logger LOGGER = LoggerFactory.getLogger(Scraper.class);
 
     private List<Extractor> extractors;
+    private MetaExtractor metaExtractor = new MetaExtractor();
 
     public Scraper() {
         extractors = Arrays.asList(
@@ -30,9 +33,17 @@ public class Scraper {
         );
     }
 
+    public Set<Map<String, List<String>>> extractMeta(URL url, int timeout) throws IOException {
+        Document document = Jsoup.parse(url, timeout);
+        return metaExtractor.extract(document);
+    }
     public List<Entity> extract(File file) throws IOException {
         Document document = Jsoup.parse(file, "UTF-8");
         return scrap(document);
+    }
+    public Set<Map<String, List<String>>> extractMeta(File file) throws IOException {
+        Document document = Jsoup.parse(file, "UTF-8");
+        return metaExtractor.extract(document);
     }
     public List<Map<String, Object>>  extractTo(File file) throws IOException{
         Document document = Jsoup.parse(file, "UTF-8");
@@ -62,6 +73,11 @@ public class Scraper {
         Document document = Jsoup.parse(html);
         return scrap(document);
     }
+    public Set<Map<String, List<String>>> extractMeta(String html) throws IOException {
+        Document document = Jsoup.parse(html);
+        return metaExtractor.extract(document);
+    }
+
     private List<Map<String, Object>> scraps(Document document) {
         return new JsonLdExtractor().getThing(document);
     }
