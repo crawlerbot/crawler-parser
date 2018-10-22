@@ -42,7 +42,7 @@ class HtmlExtractorTest {
         System.out.println("result:" + JsonUtils.toPrettyString(result));
 
         Scraper scraper = new Scraper();
-        List<Map<String, Object>> data = scraper.extractSemantic(new URL("https://vnexpress.net/tin-tuc/thoi-su/hom-nay-quoc-hoi-nghe-gioi-thieu-nhan-su-de-bau-chu-tich-nuoc-3827210.html"), 20000);
+        List<Object> data = scraper.extractSemantic(new URL("https://vnexpress.net/tin-tuc/thoi-su/hom-nay-quoc-hoi-nghe-gioi-thieu-nhan-su-de-bau-chu-tich-nuoc-3827210.html"), 20000);
         System.out.println("data:" + JsonUtils.toPrettyString(data));
 
 

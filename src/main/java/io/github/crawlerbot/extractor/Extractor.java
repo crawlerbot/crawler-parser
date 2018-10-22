@@ -11,5 +11,5 @@ public interface Extractor {
 
     List<Entity> getThings(Document document);
 
-    List<Map<String, Object>> getThing(Document document);
+    List<Object> getThing(Document document);
 }

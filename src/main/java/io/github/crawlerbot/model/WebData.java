@@ -6,18 +6,19 @@ import java.util.Set;
 
 public class WebData {
 
-    List<Map<String, Object>> semantic;
+    List<Object> semantic;
     Map<String, Set<String>> meta;
     Map<String, Set<String>> data;
 
     public WebData() {
     }
 
-    public List<Map<String, Object>> getSemantic() {
+
+    public List<Object> getSemantic() {
         return semantic;
     }
 
-    public void setSemantic(List<Map<String, Object>> semantic) {
+    public void setSemantic(List<Object> semantic) {
         this.semantic = semantic;
     }
 

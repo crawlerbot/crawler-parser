@@ -3,9 +3,13 @@ package io.github.crawlerbot.extractor;
 import com.github.jsonldjava.core.JsonLdOptions;
 import com.github.jsonldjava.core.JsonLdProcessor;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.google.schemaorg.JsonLdSerializer;
 import com.google.schemaorg.JsonLdSyntaxException;
 import io.github.crawlerbot.model.Entity;
+import io.github.crawlerbot.utils.EscapeStringSerializer;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -38,11 +42,11 @@ public class JsonLdExtractor implements Extractor {
     }
 
     @Override
-    public List<Map<String, Object>> getThing(Document document) {
+    public List<Object> getThing(Document document) {
         Elements elements = getElements(document);
-        List<Map<String, Object>> results = new ArrayList<>();
+        List<Object> results = new ArrayList<>();
         for (Element element : elements) {
-            Map<String, Object> result = parseThing(element);
+            Object result = parseThing(element);
             results.add(result);
         }
         return results;
@@ -103,15 +107,12 @@ public class JsonLdExtractor implements Extractor {
      * @param element
      * @return
      */
-    private Map<String, Object> parseThing(Element element) {
+    private Object parseThing(Element element) {
         try {
             String elementHtml = getElementJson(element);
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder().disableHtmlEscaping().create();
             Object jsonObject = gson.fromJson(elementHtml, Object.class);
-            Map context = new HashMap();
-            JsonLdOptions options = new JsonLdOptions();
-            Map<String, Object> compact = JsonLdProcessor.compact(jsonObject, context, options);
-            return compact;
+            return jsonObject;
         } catch (Exception ex) {
             LOGGER.warn("Error during the json-ld parsing", ex);
             return new HashMap<>();

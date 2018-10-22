@@ -27,7 +27,7 @@ public class ScraperTest {
     @Test
     public void demo() throws IOException {
         Scraper scraper = new Scraper();
-        List<Map<String, Object>> entityList = scraper.extractSemantic(
+        List<Object> entityList = scraper.extractSemantic(
                 new File(getClass().getClassLoader().getResource("demo.html").getFile())
         );
         System.out.println(JsonUtils.toPrettyString(entityList));
@@ -49,7 +49,7 @@ public class ScraperTest {
     @Test
     public void scraperJsonLdTest() throws IOException {
         Scraper scraper = new Scraper();
-        List<Map<String, Object>> entityList = scraper.extractSemantic(
+        List<Object> entityList = scraper.extractSemantic(
                 new File(getClass().getClassLoader().getResource("jsonld.html").getFile())
         );
         File resultFile = new File(getClass().getClassLoader().getResource("extract_jsonld_resutl.json").getFile());
@@ -61,7 +61,7 @@ public class ScraperTest {
     @Test
     public void scraperMicrodataTest() throws IOException {
         Scraper scraper = new Scraper();
-        List<Map<String, Object>> entityList = scraper.extractSemantic(
+        List<Object> entityList = scraper.extractSemantic(
                 new File(getClass().getClassLoader().getResource("microdata.html").getFile())
         );
         System.out.println(JsonUtils.toPrettyString(entityList));
@@ -128,7 +128,7 @@ public class ScraperTest {
         Scraper scraper = new Scraper();
         File file = new File(getClass().getClassLoader().getResource("detail_news.html").getFile());
         String fileContent = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
-        WebData webData = scraper.extractHtmls(fileContent,"https://vnexpress.net/tin-tuc/thoi-su/hom-nay-quoc-hoi-nghe-gioi-thieu-nhan-su-de-bau-chu-tich-nuoc-3827210.html" );
+        WebData webData = scraper.extractHtmls(fileContent,"http://kenh14.vn/noi-da-ga-voi-phan-hat-acapella-chap-moi-the-loai-mr-removed-cua-taeyeon-20181021214200239.chn" );
 
         File resultFile = new File(getClass().getClassLoader().getResource("extract_all_html_result.json").getFile());
         String resultFileContent = new String(Files.readAllBytes(Paths.get(resultFile.getAbsolutePath())));

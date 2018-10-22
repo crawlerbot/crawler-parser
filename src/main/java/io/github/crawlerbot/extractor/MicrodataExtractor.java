@@ -3,6 +3,7 @@ package io.github.crawlerbot.extractor;
 import com.github.jsonldjava.core.JsonLdOptions;
 import com.github.jsonldjava.core.JsonLdProcessor;
 import com.github.jsonldjava.utils.JsonUtils;
+import com.google.gson.Gson;
 import com.google.schemaorg.JsonLdSerializer;
 import com.google.schemaorg.core.Thing;
 import io.github.crawlerbot.SchemaToThingConverter;
@@ -54,20 +55,26 @@ public class MicrodataExtractor implements Extractor {
     }
 
     @Override
-    public List<Map<String, Object>> getThing(Document document) {
+    public List<Object> getThing(Document document) {
         try {
             List<Entity> things = getThings(document);
 
-            List<Map<String, Object>> results = new ArrayList<>();
+            List<Object> results = new ArrayList<>();
             JsonLdSerializer serializer = new JsonLdSerializer(true /* setPrettyPrinting */);
             for (Entity entity : things) {
-                System.out.println("thing=================:" + serializer.serialize(entity.getThing()));
-                String jsonLdStr = serializer.serialize(entity.getThing());
-                Object jsonObject = JsonUtils.fromString(jsonLdStr);
-                Map context = new HashMap();
-                JsonLdOptions options = new JsonLdOptions();
-                Map<String, Object> compact = JsonLdProcessor.compact(jsonObject, context, options);
-                results.add(compact);
+                try {
+                    System.out.println("thing=================:" + serializer.serialize(entity.getThing()));
+                    String jsonLdStr = serializer.serialize(entity.getThing());
+                    Object jsonObject = JsonUtils.fromString(jsonLdStr);
+                   // Gson gson = new Gson();
+                    //Object jsonObject = gson.fromJson(jsonLdStr, Object.class);
+                   // Map context = new HashMap();
+                   // JsonLdOptions options = new JsonLdOptions();
+                    //Map<String, Object> compact = JsonLdProcessor.compact(jsonObject, context, options);
+                    results.add(jsonObject);
+                }catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
             return results;
         } catch (Exception ex) {

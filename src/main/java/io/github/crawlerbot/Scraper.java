@@ -64,7 +64,7 @@ public class Scraper {
         return metaExtractor.extract(document);
     }
 
-    public List<Map<String, Object>> extractSemantic(File file) throws IOException {
+    public List<Object> extractSemantic(File file) throws IOException {
         Document document = Jsoup.parse(file, "UTF-8");
         return extractors.stream()
                 .flatMap(extractor -> extractor.getThing(document).stream())
@@ -76,14 +76,14 @@ public class Scraper {
         return scrap(document);
     }
 
-    public List<Map<String, Object>> extractSemantic(URL url, int timeout) throws IOException, URISyntaxException {
+    public List<Object> extractSemantic(URL url, int timeout) throws IOException, URISyntaxException {
         Document document = fetchByJsoup(url.toURI().toString(), timeout);
         return extractors.stream()
                 .flatMap(extractor -> extractor.getThing(document).stream())
                 .collect(Collectors.toList());
     }
 
-    public List<Map<String, Object>> extractSemantic(String html) {
+    public List<Object> extractSemantic(String html) {
         Document document = Jsoup.parse(html);
         return extractors.stream()
                 .flatMap(extractor -> extractor.getThing(document).stream())
@@ -100,7 +100,7 @@ public class Scraper {
         return metaExtractor.extract(document);
     }
 
-    private List<Map<String, Object>> scraps(Document document) {
+    private List<Object> scraps(Document document) {
         return new JsonLdExtractor().getThing(document);
     }
 
@@ -113,7 +113,7 @@ public class Scraper {
 
     public WebData extractHtml(URL url, int timeout) throws IOException, URISyntaxException {
         Document document = fetchByJsoup(url.toURI().toString(), timeout);
-        List<Map<String, Object>> semantic = extractors.stream()
+        List<Object> semantic = extractors.stream()
                 .flatMap(extractor -> extractor.getThing(document).stream())
                 .collect(Collectors.toList());
         Map<String, Set<String>> meta = metaExtractor.extract(document);
@@ -129,7 +129,7 @@ public class Scraper {
 
 
         Document detailDocument = Jsoup.parse(html, url, Parser.xmlParser());
-        List<Map<String, Object>> semantic = extractors.stream()
+        List<Object> semantic = extractors.stream()
                 .flatMap(extractor -> extractor.getThing(detailDocument).stream())
                 .collect(Collectors.toList());
         Map<String, Set<String>> meta = metaExtractor.extract(detailDocument);
