@@ -38,5 +38,69 @@
     "configName": "",
     "attr": "text",
     "dataType": "STRING"
+  },
+  {
+    "name": "icon",
+    "selector": "link[rel=apple-touch-icon-precomposed]",
+    "host": "vnexpress.net",
+    "configName": "",
+    "attr": "abs:href",
+    "dataType": "STRING"
+  },
+  {
+    "name": "logo",
+    "selector": "link[rel=apple-touch-icon-precomposed]",
+    "host": "vnexpress.net",
+    "configName": "",
+    "attr": "abs:href",
+    "dataType": "STRING"
+  },
+  {
+    "name": "publisherName",
+    "selector": "meta[name=author]",
+    "host": "vnexpress.net",
+    "configName": "",
+    "attr": "content",
+    "dataType": "STRING"
+  },
+  {
+    "name": "datePublished",
+    "selector": "meta[itemprop=datePublished]",
+    "host": "vnexpress.net",
+    "configName": "",
+    "attr": "content",
+    "dataType": "STRING"
+  },
+  {
+    "name": "dateModified",
+    "selector": "meta[itemprop=dateModified]",
+    "host": "vnexpress.net",
+    "configName": "",
+    "attr": "content",
+    "dataType": "STRING"
+  },
+  {
+    "name": "url",
+    "selector": "link[rel=canonical]",
+    "host": "vnexpress.net",
+    "configName": "",
+    "attr": "abs:href",
+    "dataType": "STRING"
+  },
+  {
+    "name": "title",
+    "selector": "meta[property=og:title]",
+    "attr": "content",
+    "host": "vnexpress.net",
+    "configName": "",
+    "dataType": "STRING"
+  },
+  {
+    "name": "description",
+    "selector": "meta[property=og:description]",
+    "attr": "content",
+    "host": "vnexpress.net",
+    "configName": "",
+    "dataType": "STRING"
   }
 ]

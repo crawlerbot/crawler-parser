@@ -438,5 +438,45 @@
     "configName": "",
     "attr": "abs:href",
     "dataType": "STRING"
+  },
+  {
+    "name": "publisherUrl",
+    "selector": "link[rel=alternate]",
+    "configName": "",
+    "attr": "abs:href",
+    "dataType": "STRING"
+
+  },
+  {
+    "name": "publisherName",
+    "selector": "meta[property=og:site_name]",
+    "configName": "",
+    "attr": "content",
+    "dataType": "STRING"
+
+  },
+  {
+    "name": "publisherName",
+    "selector": "meta[property=site_name]",
+    "configName": "",
+    "attr": "content",
+    "dataType": "STRING"
+
+  },
+  {
+    "name": "publisherName",
+    "selector": "meta[name=og:site_name]",
+    "configName": "",
+    "attr": "content",
+    "dataType": "STRING"
+
+  },
+  {
+    "name": "publisherName",
+    "selector": "meta[name=site_name]",
+    "configName": "",
+    "attr": "content",
+    "dataType": "STRING"
+
   }
 ]
