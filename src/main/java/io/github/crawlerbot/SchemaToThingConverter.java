@@ -1,9 +1,9 @@
 package io.github.crawlerbot;
 
-import io.github.crawlerbot.model.Schema;
 import com.google.schemaorg.core.CoreConstants;
 import com.google.schemaorg.core.CoreFactory;
 import com.google.schemaorg.core.Thing;
+import io.github.crawlerbot.model.Schema;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.InvocationTargetException;
@@ -23,7 +23,7 @@ public class SchemaToThingConverter {
         try {
             // Find the type of the schema we're currently converting
             String typeName = getTypeName(schema);
-            if(typeName.equals(typeName.toLowerCase())) {
+            if (typeName.equals(typeName.toLowerCase())) {
                 typeName = typeName.substring(0, 1).toUpperCase() + typeName.substring(1).toLowerCase();
             }
             // In order to build a schema.org thing, we use builders
@@ -54,12 +54,12 @@ public class SchemaToThingConverter {
         // Set all the properties
         for (String propertyName : schema.getProperties().keySet()) {
             String methodName = String.format("add%s", capitalize(propertyName));
-            System.out.println("methodName:" + methodName );
+            System.out.println("methodName:" + methodName);
             //if(!methodName.equals("addHeadline")) {
-                Method method = builderClass.getMethod(methodName, String.class);
-                //System.out.println("setProperties:=========" + method.toString());
-               // System.out.println("setProperties:=========" + method.getName());
-                method.invoke(builder, schema.getProperties().get(propertyName).get(0));
+            Method method = builderClass.getMethod(methodName, String.class);
+            //System.out.println("setProperties:=========" + method.toString());
+            // System.out.println("setProperties:=========" + method.getName());
+            method.invoke(builder, schema.getProperties().get(propertyName).get(0));
             //}
         }
     }
@@ -92,7 +92,7 @@ public class SchemaToThingConverter {
             IllegalAccessException {
 
         String builderName = String.format("new%sBuilder", typeName);
-        Thing.Builder builder =  (Thing.Builder) CoreFactory.class.getMethod(builderName).invoke(null);
+        Thing.Builder builder = (Thing.Builder) CoreFactory.class.getMethod(builderName).invoke(null);
         return builder;
     }
 
@@ -108,7 +108,7 @@ public class SchemaToThingConverter {
             String className = String.format("%s.%s$Builder", PACKAGE_SCHEMA_ORG, typeName);
             //className = className.substring(0,1).toUpperCase() + className.substring(1).toLowerCase();
             return Class.forName(className);
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             return null;
         }

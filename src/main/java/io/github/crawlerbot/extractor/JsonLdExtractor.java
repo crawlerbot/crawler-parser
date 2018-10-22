@@ -2,11 +2,10 @@ package io.github.crawlerbot.extractor;
 
 import com.github.jsonldjava.core.JsonLdOptions;
 import com.github.jsonldjava.core.JsonLdProcessor;
-import com.github.jsonldjava.utils.JsonUtils;
 import com.google.gson.Gson;
-import io.github.crawlerbot.model.Entity;
 import com.google.schemaorg.JsonLdSerializer;
 import com.google.schemaorg.JsonLdSyntaxException;
+import io.github.crawlerbot.model.Entity;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -41,8 +40,8 @@ public class JsonLdExtractor implements Extractor {
     @Override
     public List<Map<String, Object>> getThing(Document document) {
         Elements elements = getElements(document);
-        List<Map<String,Object>> results = new ArrayList<>();
-        for(Element element: elements) {
+        List<Map<String, Object>> results = new ArrayList<>();
+        for (Element element : elements) {
             Map<String, Object> result = parseThing(element);
             results.add(result);
         }
@@ -81,17 +80,18 @@ public class JsonLdExtractor implements Extractor {
 
     /**
      * get json-ld element text
+     *
      * @param element
      * @return
      */
     private String getElementJson(Element element) {
         try {
             String elementHtml = element.html().trim();
-           // LOGGER.info("start getElementJson json-ld:{}", elementHtml);
+            // LOGGER.info("start getElementJson json-ld:{}", elementHtml);
             if ((elementHtml.startsWith("{") && elementHtml.endsWith("}"))) return elementHtml;
             String result = elementHtml.substring(elementHtml.indexOf("{"), elementHtml.lastIndexOf("}") + 1);
             return result;
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             return element.html();
         }
 
@@ -99,21 +99,22 @@ public class JsonLdExtractor implements Extractor {
 
     /**
      * parse thing and return map object
+     *
      * @param element
      * @return
      */
     private Map<String, Object> parseThing(Element element) {
-       try {
-           String elementHtml = getElementJson(element);
-           Gson gson = new Gson();
-           Object jsonObject = gson.fromJson(elementHtml, Object.class);
-           Map context = new HashMap();
-           JsonLdOptions options = new JsonLdOptions();
-           Map<String, Object> compact = JsonLdProcessor.compact(jsonObject, context, options);
-           return  compact;
-       }catch (Exception ex) {
-           LOGGER.warn("Error during the json-ld parsing", ex);
-           return new HashMap<>();
-       }
+        try {
+            String elementHtml = getElementJson(element);
+            Gson gson = new Gson();
+            Object jsonObject = gson.fromJson(elementHtml, Object.class);
+            Map context = new HashMap();
+            JsonLdOptions options = new JsonLdOptions();
+            Map<String, Object> compact = JsonLdProcessor.compact(jsonObject, context, options);
+            return compact;
+        } catch (Exception ex) {
+            LOGGER.warn("Error during the json-ld parsing", ex);
+            return new HashMap<>();
+        }
     }
 }

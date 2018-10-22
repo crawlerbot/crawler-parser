@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -11,7 +11,7 @@
     <version>1.0.1-SNAPSHOT</version>
 
 
-    <name>crawler-data-model  core library</name>
+    <name>crawler-data-model core library</name>
     <description>crawler-data-model library used by applications transform message inside crawler system</description>
     <url>https://github.com/crawlerbot/crawler-data-model/</url>
     <organization>
@@ -54,7 +54,8 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <!-- Sonar properties -->
-        <sonar.jacoco.itReportPath>${project.testresult.directory}/coverage/jacoco/jacoco-it.exec</sonar.jacoco.itReportPath>
+        <sonar.jacoco.itReportPath>${project.testresult.directory}/coverage/jacoco/jacoco-it.exec
+        </sonar.jacoco.itReportPath>
         <sonar.jacoco.reportPath>${project.testresult.directory}/coverage/jacoco/jacoco.exec</sonar.jacoco.reportPath>
         <sonar.java.codeCoveragePlugin>jacoco</sonar.java.codeCoveragePlugin>
         <sonar.sources>${project.basedir}/src/main/</sonar.sources>
@@ -238,11 +239,15 @@
                 <configuration>
                     <rules>
                         <requireMavenVersion>
-                            <message>You are running an older version of Maven. simlife requires at least Maven ${maven.version}</message>
+                            <message>You are running an older version of Maven. simlife requires at least Maven
+                                ${maven.version}
+                            </message>
                             <version>[${maven.version},)</version>
                         </requireMavenVersion>
                         <requireJavaVersion>
-                            <message>You are running an older version of Java. simlife requires at least JDK ${java.version}</message>
+                            <message>You are running an older version of Java. simlife requires at least JDK
+                                ${java.version}
+                            </message>
                             <version>[${java.version}.0,)</version>
                         </requireJavaVersion>
                     </rules>

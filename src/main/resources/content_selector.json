@@ -1,7 +1,34 @@
 [
   {
-    "domain": "vnexpress.net",
     "name": "html",
-    "selector":""
+    "selector": "#article-body",
+    "host": "vov.vn",
+    "configName": "",
+    "attr": "html",
+    "dataType": "STRING"
+  },
+  {
+    "name": "html",
+    "selector": ".article-body",
+    "host": "vov.vn",
+    "configName": "",
+    "attr": "html",
+    "dataType": "STRING"
+  },
+  {
+    "name": "html",
+    "selector": ".content_detail",
+    "host": "vnexpress.net",
+    "configName": "",
+    "attr": "html",
+    "dataType": "STRING"
+  },
+  {
+    "name": "html",
+    "selector": ".content_detail",
+    "host": "vnexpress.net",
+    "configName": "",
+    "attr": "html",
+    "dataType": "STRING"
   }
 ]

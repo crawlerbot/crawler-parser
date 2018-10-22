@@ -4,10 +4,10 @@ import com.github.jsonldjava.core.JsonLdOptions;
 import com.github.jsonldjava.core.JsonLdProcessor;
 import com.github.jsonldjava.utils.JsonUtils;
 import com.google.schemaorg.JsonLdSerializer;
+import com.google.schemaorg.core.Thing;
 import io.github.crawlerbot.SchemaToThingConverter;
 import io.github.crawlerbot.model.Entity;
 import io.github.crawlerbot.model.Schema;
-import com.google.schemaorg.core.Thing;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -45,9 +45,9 @@ public class MicrodataExtractor implements Extractor {
                         return optionalThing
                                 .map(thing -> Stream.of(new Entity(element.toString(), thing)))
                                 .orElseGet(Stream::empty);
-                    }catch (Exception ex) {
+                    } catch (Exception ex) {
                         ex.printStackTrace();
-                       return null;
+                        return null;
                     }
                 })
                 .collect(Collectors.toList());
@@ -70,7 +70,7 @@ public class MicrodataExtractor implements Extractor {
                 results.add(compact);
             }
             return results;
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             return new ArrayList<>();
         }

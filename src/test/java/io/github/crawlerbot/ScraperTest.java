@@ -1,20 +1,16 @@
 package io.github.crawlerbot;
 
 import com.github.jsonldjava.utils.JsonUtils;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import io.github.crawlerbot.model.Entity;
 import com.google.common.collect.ImmutableList;
 import com.google.schemaorg.SchemaOrgType;
 import com.google.schemaorg.core.*;
 import com.google.schemaorg.core.datatype.DataType;
+import io.github.crawlerbot.model.Entity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -53,7 +49,7 @@ public class ScraperTest {
                 new File(getClass().getClassLoader().getResource("jsonld.html").getFile())
         );
         File resultFile = new File(getClass().getClassLoader().getResource("extract_jsonld_resutl.json").getFile());
-        String resultFileContent = new String (Files.readAllBytes(Paths.get(resultFile.getAbsolutePath())));
+        String resultFileContent = new String(Files.readAllBytes(Paths.get(resultFile.getAbsolutePath())));
         Assertions.assertEquals(resultFileContent, JsonUtils.toPrettyString(entityList));
         System.out.println(JsonUtils.toPrettyString(entityList));
     }
@@ -61,15 +57,14 @@ public class ScraperTest {
     @Test
     public void scraperMicrodataTest() throws IOException {
         Scraper scraper = new Scraper();
-        List<Map<String, Object>>  entityList = scraper.extractSemantic(
+        List<Map<String, Object>> entityList = scraper.extractSemantic(
                 new File(getClass().getClassLoader().getResource("microdata.html").getFile())
         );
         System.out.println(JsonUtils.toPrettyString(entityList));
         File resultFile = new File(getClass().getClassLoader().getResource("extract_micro_data_result.json").getFile());
-        String resultFileContent = new String (Files.readAllBytes(Paths.get(resultFile.getAbsolutePath())));
+        String resultFileContent = new String(Files.readAllBytes(Paths.get(resultFile.getAbsolutePath())));
         Assertions.assertEquals(resultFileContent, JsonUtils.toPrettyString(entityList));
     }
-
 
 
     @Test
@@ -118,8 +113,8 @@ public class ScraperTest {
     public void testMetaExtract() throws IOException {
         Scraper scraper = new Scraper();
         File resultFile = new File(getClass().getClassLoader().getResource("extract_meta_result.json").getFile());
-        String resultFileContent = new String (Files.readAllBytes(Paths.get(resultFile.getAbsolutePath())));
-        Set<Map<String, List<String>>> data = scraper.extractMeta(new URL("https://kinhdoanh.vnexpress.net/tin-tuc/quoc-te/kinh-te-trung-quoc-lien-tiep-chiu-don-giang-chi-trong-vai-ngay-3826849.html"), 20000);
+        String resultFileContent = new String(Files.readAllBytes(Paths.get(resultFile.getAbsolutePath())));
+        Map<String, Set<String>> data = scraper.extractMeta(new URL("https://www.rte.ie/news/2018/1021/1005726-death-of-woman-in-dublin-treated-as-suspicious/"), 20000);
         Assertions.assertEquals(resultFileContent, JsonUtils.toPrettyString(data));
         System.out.println("data:=======");
         System.out.println(JsonUtils.toPrettyString(data));

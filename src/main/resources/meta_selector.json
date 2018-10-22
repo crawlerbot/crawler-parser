@@ -2,64 +2,64 @@
   /** start title **/
 
   {
-    "name":"title",
-    "selector":"meta[property=og:title]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "title",
+    "selector": "meta[property=og:title]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"title",
-    "selector":"meta[name=og:title]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "title",
+    "selector": "meta[name=og:title]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"title",
-    "selector":"meta[name=title]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "title",
+    "selector": "meta[name=title]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"title",
-    "selector":"meta[property=title]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "title",
+    "selector": "meta[property=title]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   /** end title **/
 
   /** start description **/
 
   {
-    "name":"description",
-    "selector":"meta[property=og:description]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "description",
+    "selector": "meta[property=og:description]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"description",
-    "selector":"meta[name=og:description]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "description",
+    "selector": "meta[name=og:description]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"description",
-    "selector":"meta[name=description]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "description",
+    "selector": "meta[name=description]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"description",
-    "selector":"meta[property=description]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "description",
+    "selector": "meta[property=description]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   /** end description **/
 
@@ -67,396 +67,376 @@
 
   /** start url **/
   {
-    "name":"url",
-    "selector":"meta[property=og:url]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "url",
+    "selector": "meta[property=og:url]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"url",
-    "selector":"meta[name=og:url]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "url",
+    "selector": "meta[name=og:url]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"url",
-    "selector":"meta[name=url]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "url",
+    "selector": "meta[name=url]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"url",
-    "selector":"meta[property=url]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "url",
+    "selector": "meta[property=url]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
-
   /** end url **/
 
   /** start tag **/
 
   {
-    "name":"tag",
-    "selector":"meta[property=og:tag]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "tag",
+    "selector": "meta[property=og:tag]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"tag",
-    "selector":"meta[name=og:tag]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "tag",
+    "selector": "meta[name=og:tag]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"tag",
-    "selector":"meta[name=tag]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "tag",
+    "selector": "meta[name=tag]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"tag",
-    "selector":"meta[property=tag]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "tag",
+    "selector": "meta[property=tag]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   /** end tag **/
 
   /** start categories **/
   {
-    "name":"categories",
-    "selector":"meta[property=og:categories]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "categories",
+    "selector": "meta[property=og:categories]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"categories",
-    "selector":"meta[name=og:categories]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "categories",
+    "selector": "meta[name=og:categories]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"categories",
-    "selector":"meta[name=categories]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "categories",
+    "selector": "meta[name=categories]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"categories",
-    "selector":"meta[property=categories]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "categories",
+    "selector": "meta[property=categories]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   /** end categories **/
 
 
   /** start datetime **/
   {
-    "name":"datePublished",
-    "selector":"meta[property=og:published_time]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "datePublished",
+    "selector": "meta[property=og:published_time]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"datePublished",
-    "selector":"meta[name=og:published_time]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "datePublished",
+    "selector": "meta[name=og:published_time]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"datePublished",
-    "selector":"meta[name=published_time]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "datePublished",
+    "selector": "meta[name=published_time]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"datePublished",
-    "selector":"meta[property=published_time]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
-  },
-
-  {
-    "name":"datePublished",
-    "selector":"meta[property=og:pubdate]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "datePublished",
+    "selector": "meta[property=published_time]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"datePublished",
-    "selector":"meta[name=og:pubdate]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "datePublished",
+    "selector": "meta[property=og:pubdate]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"datePublished",
-    "selector":"meta[name=pubdate]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "datePublished",
+    "selector": "meta[name=og:pubdate]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"datePublished",
-    "selector":"meta[property=pubdate]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
-  },
-
-
-  {
-    "name":"modifiedTime",
-    "selector":"meta[property=og:modified_time]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "datePublished",
+    "selector": "meta[name=pubdate]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"modifiedTime",
-    "selector":"meta[name=og:modified_time]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "datePublished",
+    "selector": "meta[property=pubdate]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"modifiedTime",
-    "selector":"meta[name=modified_time]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "modifiedTime",
+    "selector": "meta[property=og:modified_time]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"modifiedTime",
-    "selector":"meta[property=modified_time]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
-  },
-
-
-
-  {
-    "name":"datePublished",
-    "selector":"meta[property=article:published_time]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "modifiedTime",
+    "selector": "meta[name=og:modified_time]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"datePublished",
-    "selector":"meta[name=article:published_time]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
-  },
-
-  {
-    "name":"datePublished",
-    "selector":"meta[property=article:pubdate]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "modifiedTime",
+    "selector": "meta[name=modified_time]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"datePublished",
-    "selector":"meta[name=article:pubdate]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "modifiedTime",
+    "selector": "meta[property=modified_time]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"datePublished",
-    "selector":"meta[name=pubdate]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "datePublished",
+    "selector": "meta[property=article:published_time]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"datePublished",
-    "selector":"meta[property=pubdate]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
-  },
-
-
-  {
-    "name":"modifiedTime",
-    "selector":"meta[property=article:modified_time]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "datePublished",
+    "selector": "meta[name=article:published_time]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   {
-    "name":"modifiedTime",
-    "selector":"meta[name=article:modified_time]",
-    "attr":"content",
-    "configName" : "",
-    "dataType" : "STRING"
+    "name": "datePublished",
+    "selector": "meta[property=article:pubdate]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
+  },
+  {
+    "name": "datePublished",
+    "selector": "meta[name=article:pubdate]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
+  },
+  {
+    "name": "datePublished",
+    "selector": "meta[name=pubdate]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
+  },
+  {
+    "name": "datePublished",
+    "selector": "meta[property=pubdate]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
+  },
+  {
+    "name": "modifiedTime",
+    "selector": "meta[property=article:modified_time]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
+  },
+  {
+    "name": "modifiedTime",
+    "selector": "meta[name=article:modified_time]",
+    "attr": "content",
+    "configName": "",
+    "dataType": "STRING"
   },
   /** end date time **/
 
 
-   /** start thumb **/
+  /** start thumb **/
 
 
   {
-
-    "name" : "thumb",
-    "selector" : "meta[property=og:image]",
-    "configName" : "",
-    "attr" : "content",
-    "dataType" : "STRING"
+    "name": "thumb",
+    "selector": "meta[property=og:image]",
+    "configName": "",
+    "attr": "content",
+    "dataType": "STRING"
   },
   {
-
-    "name" : "thumb",
-    "selector" : "meta[property=image]",
-    "configName" : "",
-    "attr" : "content",
-    "dataType" : "STRING"
-  },
-
-  {
-
-    "name" : "thumb",
-    "selector" : "meta[name=og:image]",
-    "configName" : "",
-    "attr" : "content",
-    "dataType" : "STRING"
+    "name": "thumb",
+    "selector": "meta[property=image]",
+    "configName": "",
+    "attr": "content",
+    "dataType": "STRING"
   },
   {
-
-    "name" : "thumb",
-    "selector" : "meta[name=image]",
-    "configName" : "",
-    "attr" : "content",
-    "dataType" : "STRING"
+    "name": "thumb",
+    "selector": "meta[name=og:image]",
+    "configName": "",
+    "attr": "content",
+    "dataType": "STRING"
   },
   {
-
-    "name" : "thumb",
-    "selector" : "meta[itemprop=image]",
-    "configName" : "",
-    "attr" : "content",
-    "dataType" : "STRING"
+    "name": "thumb",
+    "selector": "meta[name=image]",
+    "configName": "",
+    "attr": "content",
+    "dataType": "STRING"
   },
   {
-
-    "name" : "thumb",
-    "selector" : "meta[itemprop=photo]",
-    "configName" : "",
-    "attr" : "content",
-    "dataType" : "STRING"
+    "name": "thumb",
+    "selector": "meta[itemprop=image]",
+    "configName": "",
+    "attr": "content",
+    "dataType": "STRING"
+  },
+  {
+    "name": "thumb",
+    "selector": "meta[itemprop=photo]",
+    "configName": "",
+    "attr": "content",
+    "dataType": "STRING"
   },
   /** end thumb **/
 
   /** start key word **/
 
   {
-    "name" : "keywords",
-    "selector" : "meta[property=og:keywords]",
-    "configName" : "",
-    "attr" : "content",
-    "dataType" : "STRING"
+    "name": "keywords",
+    "selector": "meta[property=og:keywords]",
+    "configName": "",
+    "attr": "content",
+    "dataType": "STRING"
   },
   {
-    "name" : "keywords",
-    "selector" : "meta[property=keywords]",
-    "configName" : "",
-    "attr" : "content",
-    "dataType" : "STRING"
+    "name": "keywords",
+    "selector": "meta[property=keywords]",
+    "configName": "",
+    "attr": "content",
+    "dataType": "STRING"
   },
   {
-    "name" : "keywords",
-    "selector" : "meta[name=keywords]",
-    "configName" : "",
-    "attr" : "content",
-    "dataType" : "STRING"
+    "name": "keywords",
+    "selector": "meta[name=keywords]",
+    "configName": "",
+    "attr": "content",
+    "dataType": "STRING"
   },
   {
-    "name" : "keywords",
-    "selector" : "meta[name=og:keywords]",
-    "configName" : "",
-    "attr" : "content",
-    "dataType" : "STRING"
+    "name": "keywords",
+    "selector": "meta[name=og:keywords]",
+    "configName": "",
+    "attr": "content",
+    "dataType": "STRING"
   },
-
   /** end keywords **/
 
   /** start author **/
 
   {
-    "name" : "author",
-    "selector" : "meta[property=author]",
-    "configName" : "",
-    "attr" : "content",
-    "dataType" : "STRING"
+    "name": "author",
+    "selector": "meta[property=author]",
+    "configName": "",
+    "attr": "content",
+    "dataType": "STRING"
   },
   {
-    "name" : "author",
-    "selector" : "meta[name=author]",
-    "configName" : "",
-    "attr" : "content",
-    "dataType" : "STRING"
+    "name": "author",
+    "selector": "meta[name=author]",
+    "configName": "",
+    "attr": "content",
+    "dataType": "STRING"
   },
   {
-    "name" : "author",
-    "selector" : "meta[property=og:author]",
-    "configName" : "",
-    "attr" : "content",
-    "dataType" : "STRING"
+    "name": "author",
+    "selector": "meta[property=og:author]",
+    "configName": "",
+    "attr": "content",
+    "dataType": "STRING"
   },
   {
-    "name" : "author",
-    "selector" : "meta[name=og:author]",
-    "configName" : "",
-    "attr" : "content",
-    "dataType" : "STRING"
+    "name": "author",
+    "selector": "meta[name=og:author]",
+    "configName": "",
+    "attr": "content",
+    "dataType": "STRING"
   },
-
   /** icon **/
 
 
   {
-    "name" : "logo",
-    "selector" : "link[rel=shortcut icon]",
-    "configName" : "",
-    "attr" : "abs:href",
-    "dataType" : "STRING"
+    "name": "icon",
+    "selector": "link[rel=shortcut icon]",
+    "configName": "",
+    "attr": "abs:href",
+    "dataType": "STRING"
   },
   {
-    "name" : "logo",
-    "selector" : "meta[itemprop=logo]",
-    "configName" : "",
-    "attr" : "content",
-    "dataType" : "STRING"
+    "name": "logo",
+    "selector": "meta[itemprop=logo]",
+    "configName": "",
+    "attr": "content",
+    "dataType": "STRING"
   },
   /** url **/
 
   {
-    "name" : "url",
-    "selector" : "link[rel=canonical]",
-    "configName" : "",
-    "attr" : "abs:href",
-    "dataType" : "STRING"
+    "name": "url",
+    "selector": "link[rel=canonical]",
+    "configName": "",
+    "attr": "abs:href",
+    "dataType": "STRING"
   }
-
 ]

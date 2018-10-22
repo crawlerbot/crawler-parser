@@ -14,13 +14,13 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-
 import java.util.stream.Collectors;
 
 public class MetaExtractor {
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonLdSerializer.class);
-    public Set<Map<String, List<String>>> extract(Document document) {
-        Set<Map<String, List<String>>> results = new HashSet<>();
+
+    public Map<String, Set<String>> extract(Document document) {
+        Map<String, Set<String>> results = new HashMap<>();
         if (document == null || document.html() == null) return results;
         try {
             File file = new File(getClass().getClassLoader().getResource("meta_selector.json").getFile());
@@ -30,10 +30,20 @@ public class MetaExtractor {
             }.getType();
             List<Mapping> mappings = gson.fromJson(fileContent, type);
             if (mappings == null || mappings.size() == 0) return results;
-            Set<Map<String, List<String>>> result =  mappings.stream().map(mapping -> parse(mapping, document)
-            ).collect(Collectors.toSet());
-            LOGGER.info("extract meta result:{},", JsonUtils.toPrettyString(result));
-            return result;
+            for (Mapping mapping : mappings) {
+                Set<String> data = parse(mapping, document);
+
+                if (results.get(mapping.getName()) == null) {
+                    results.put(mapping.getName(), data);
+                } else {
+                    Set<String> currentData = results.get(mapping.getName());
+                    currentData.addAll(data);
+                    results.put(mapping.getName(), currentData);
+                }
+
+            }
+            LOGGER.info("extract meta result:{},", JsonUtils.toPrettyString(results));
+            return results;
         } catch (Exception ex) {
             ex.printStackTrace();
             LOGGER.info("extract exception:{},", ex);
@@ -41,17 +51,10 @@ public class MetaExtractor {
         return results;
     }
 
-    public Map<String, List<String>> parse(Mapping mapping, Document document) {
-        List<String> data = document.select(mapping.getSelector()).stream().map(element -> element.attr(mapping.getAttr())
-        ).collect(Collectors.toList());
-        Map<String, List<String>> result = new HashMap<>();
-        if(data != null && data.size()>0) {
-            result.put(mapping.getName(), data);
-            return result;
-        } else {
-            result.put(mapping.getName(), new ArrayList<>());
-            return result;
-        }
+    public Set<String> parse(Mapping mapping, Document document) {
+        Set<String> data = document.select(mapping.getSelector()).stream().map(element -> element.attr(mapping.getAttr())
+        ).collect(Collectors.toSet());
+        return data;
 
     }
 

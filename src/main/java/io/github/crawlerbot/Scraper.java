@@ -31,19 +31,22 @@ public class Scraper {
         );
     }
 
-    public Set<Map<String, List<String>>> extractMeta(URL url, int timeout) throws IOException {
+    public Map<String, Set<String>> extractMeta(URL url, int timeout) throws IOException {
         Document document = Jsoup.parse(url, timeout);
         return metaExtractor.extract(document);
     }
+
     public List<Entity> extract(File file) throws IOException {
         Document document = Jsoup.parse(file, "UTF-8");
         return scrap(document);
     }
-    public Set<Map<String, List<String>>> extractMeta(File file) throws IOException {
+
+    public Map<String, Set<String>> extractMeta(File file) throws IOException {
         Document document = Jsoup.parse(file, "UTF-8");
         return metaExtractor.extract(document);
     }
-    public List<Map<String, Object>>  extractSemantic(File file) throws IOException{
+
+    public List<Map<String, Object>> extractSemantic(File file) throws IOException {
         Document document = Jsoup.parse(file, "UTF-8");
         return extractors.stream()
                 .flatMap(extractor -> extractor.getThing(document).stream())
@@ -54,13 +57,15 @@ public class Scraper {
         Document document = Jsoup.parse(url, timeout);
         return scrap(document);
     }
-    public List<Map<String, Object>>  extractSemantic(URL url, int timeout) throws IOException {
+
+    public List<Map<String, Object>> extractSemantic(URL url, int timeout) throws IOException {
         Document document = Jsoup.parse(url, timeout);
         return extractors.stream()
                 .flatMap(extractor -> extractor.getThing(document).stream())
                 .collect(Collectors.toList());
     }
-    public List<Map<String, Object>>  extractSemantic(String html) {
+
+    public List<Map<String, Object>> extractSemantic(String html) {
         Document document = Jsoup.parse(html);
         return extractors.stream()
                 .flatMap(extractor -> extractor.getThing(document).stream())
@@ -71,7 +76,8 @@ public class Scraper {
         Document document = Jsoup.parse(html);
         return scrap(document);
     }
-    public Set<Map<String, List<String>>> extractMeta(String html) throws IOException {
+
+    public Map<String, Set<String>> extractMeta(String html) throws IOException {
         Document document = Jsoup.parse(html);
         return metaExtractor.extract(document);
     }
@@ -79,6 +85,7 @@ public class Scraper {
     private List<Map<String, Object>> scraps(Document document) {
         return new JsonLdExtractor().getThing(document);
     }
+
     private List<Entity> scrap(Document document) {
         return extractors.stream()
                 .flatMap(extractor -> extractor.getThings(document).stream())
