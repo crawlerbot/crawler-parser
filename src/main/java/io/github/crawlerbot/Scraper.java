@@ -1,14 +1,18 @@
 package io.github.crawlerbot;
 
+import io.github.crawlerbot.client.HttpEngine;
 import io.github.crawlerbot.extractor.*;
 import io.github.crawlerbot.model.Entity;
+import io.github.crawlerbot.model.WebData;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.parser.Parser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +26,6 @@ public class Scraper {
 
     private List<Extractor> extractors;
     private MetaExtractor metaExtractor = new MetaExtractor();
-    private HtmlExtractor htmlExtractor = new HtmlExtractor();
 
     public Scraper() {
         extractors = Arrays.asList(
@@ -31,8 +34,23 @@ public class Scraper {
         );
     }
 
-    public Map<String, Set<String>> extractMeta(URL url, int timeout) throws IOException {
-        Document document = Jsoup.parse(url, timeout);
+    public Document fetchByJsoup(String url, int timeout) throws IOException {
+       /* Document document = Jsoup.connect(url)
+                .userAgent("Mozilla/5.0 (X11; Linux i686; rv:10.0) Gecko/20100101 Firefox/10.0")
+                .referrer("http://www.google.com")
+                .timeout(timeout)
+                .get();
+        return  document;*/
+       return new HttpEngine(null).doFetch(url);
+    }
+
+    public Map<String, Set<String>> extractData(URL url, int timeout) throws IOException, URISyntaxException {
+        Document document = fetchByJsoup(url.toURI().toString(), timeout);
+        return HtmlExtractor.extract(document, url.toURI().toString());
+    }
+
+    public Map<String, Set<String>> extractMeta(URL url, int timeout) throws IOException, URISyntaxException {
+        Document document = fetchByJsoup(url.toURI().toString(), timeout);
         return metaExtractor.extract(document);
     }
 
@@ -53,13 +71,13 @@ public class Scraper {
                 .collect(Collectors.toList());
     }
 
-    public List<Entity> extract(URL url, int timeout) throws IOException {
-        Document document = Jsoup.parse(url, timeout);
+    public List<Entity> extract(URL url, int timeout) throws IOException, URISyntaxException {
+        Document document = fetchByJsoup(url.toURI().toString(), timeout);
         return scrap(document);
     }
 
-    public List<Map<String, Object>> extractSemantic(URL url, int timeout) throws IOException {
-        Document document = Jsoup.parse(url, timeout);
+    public List<Map<String, Object>> extractSemantic(URL url, int timeout) throws IOException, URISyntaxException {
+        Document document = fetchByJsoup(url.toURI().toString(), timeout);
         return extractors.stream()
                 .flatMap(extractor -> extractor.getThing(document).stream())
                 .collect(Collectors.toList());
@@ -91,4 +109,34 @@ public class Scraper {
                 .flatMap(extractor -> extractor.getThings(document).stream())
                 .collect(Collectors.toList());
     }
+
+
+    public WebData extractHtml(URL url, int timeout) throws IOException, URISyntaxException {
+        Document document = fetchByJsoup(url.toURI().toString(), timeout);
+        List<Map<String, Object>> semantic = extractors.stream()
+                .flatMap(extractor -> extractor.getThing(document).stream())
+                .collect(Collectors.toList());
+        Map<String, Set<String>> meta = metaExtractor.extract(document);
+        Map<String, Set<String>> data = HtmlExtractor.extract(document, url.toURI().toString());
+        WebData webData = new WebData();
+        webData.setSemantic(semantic);
+        webData.setMeta(meta);
+        webData.setData(data);
+        return webData;
+    }
+    public WebData extractHtmls(String  html, String url){
+        Document detailDocument = Jsoup.parse(html, url, Parser.xmlParser());
+        List<Map<String, Object>> semantic = extractors.stream()
+                .flatMap(extractor -> extractor.getThing(detailDocument).stream())
+                .collect(Collectors.toList());
+        Map<String, Set<String>> meta = metaExtractor.extract(detailDocument);
+        Map<String, Set<String>> data = HtmlExtractor.extract(detailDocument, url);
+        WebData webData = new WebData();
+        webData.setSemantic(semantic);
+        webData.setMeta(meta);
+        webData.setData(data);
+        return webData;
+    }
+
+
 }

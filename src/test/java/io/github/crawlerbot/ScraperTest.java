@@ -5,12 +5,16 @@ import com.google.common.collect.ImmutableList;
 import com.google.schemaorg.SchemaOrgType;
 import com.google.schemaorg.core.*;
 import com.google.schemaorg.core.datatype.DataType;
+import io.github.crawlerbot.extractor.HtmlExtractor;
 import io.github.crawlerbot.model.Entity;
+import io.github.crawlerbot.model.WebData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -110,13 +114,31 @@ public class ScraperTest {
     }
 
     @Test
-    public void testMetaExtract() throws IOException {
+    public void testMetaExtract() throws IOException, URISyntaxException {
         Scraper scraper = new Scraper();
         File resultFile = new File(getClass().getClassLoader().getResource("extract_meta_result.json").getFile());
         String resultFileContent = new String(Files.readAllBytes(Paths.get(resultFile.getAbsolutePath())));
         Map<String, Set<String>> data = scraper.extractMeta(new URL("https://www.rte.ie/news/2018/1021/1005726-death-of-woman-in-dublin-treated-as-suspicious/"), 20000);
         Assertions.assertEquals(resultFileContent, JsonUtils.toPrettyString(data));
-        System.out.println("data:=======");
+        //System.out.println("data:=======");
         System.out.println(JsonUtils.toPrettyString(data));
+    }
+
+    @Test
+    void extractHtml() throws IOException, URISyntaxException {
+        Scraper scraper = new Scraper();
+        File file = new File(getClass().getClassLoader().getResource("detail_news.html").getFile());
+        String fileContent = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
+        WebData webData = scraper.extractHtmls(fileContent,"https://vnexpress.net/tin-tuc/thoi-su/hom-nay-quoc-hoi-nghe-gioi-thieu-nhan-su-de-bau-chu-tich-nuoc-3827210.html" );
+
+
+
+        //Map<String, Set<String>> result = HtmlExtractor.extract(fileContent, "https://vnexpress.net/tin-tuc/thoi-su/hom-nay-quoc-hoi-nghe-gioi-thieu-nhan-su-de-bau-chu-tich-nuoc-3827210.html");
+        System.out.println(JsonUtils.toPrettyString(webData));
+
+                //scraper.extractHtml(new URL("https://vnexpress.net/tin-tuc/thoi-su/hom-nay-quoc-hoi-nghe-gioi-thieu-nhan-su-de-bau-chu-tich-nuoc-3827210.html"), 200000);
+        //System.out.println(JsonUtils.toPrettyString(webData));
+
+       // Map<String, Set<String>> result = HtmlExtractor.extract(fileContent, "https://vnexpress.net/tin-tuc/thoi-su/hom-nay-quoc-hoi-nghe-gioi-thieu-nhan-su-de-bau-chu-tich-nuoc-3827210.html");
     }
 }

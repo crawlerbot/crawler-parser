@@ -18,7 +18,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class HtmlExtractor {
-    private static final Logger LOGGER = LoggerFactory.getLogger(JsonLdSerializer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(HtmlExtractor.class);
     private static String removeTags = "a,iframe,script,em,div,style";
 
     public static Document removeElements(Document detailDocument, String selector) {
@@ -26,7 +26,6 @@ public class HtmlExtractor {
             Elements elements = detailDocument.select(selector);
             if (elements == null || elements.size() == 0) return detailDocument;
             for (Element element : elements) {
-                LOGGER.info("remove element:" + element.tag());
                 if (element.select("img") == null) {
                     element.remove();
                 }
@@ -41,9 +40,7 @@ public class HtmlExtractor {
         if (selectors == null || selectors == "") return detailDocument;
         try {
             List<String> removeTags = Arrays.asList(selectors.split(","));
-            LOGGER.info("removeElementsByListSelectors:" + removeTags.size());
             for (String tag : removeTags) {
-                LOGGER.info("remove cridical tags:" + tag);
                 removeElements(detailDocument, tag);
             }
             return detailDocument;
@@ -56,7 +53,6 @@ public class HtmlExtractor {
         if (tags == null || tags == "") return detailDocument;
         try {
             List<String> removeTags = Arrays.asList(tags.split(","));
-            LOGGER.info("removeTags:" + removeTags.size());
             for (String tag : removeTags) {
                 detailDocument.select(tag).remove();
             }
@@ -98,20 +94,7 @@ public class HtmlExtractor {
         }
     }
 
-//    public static String extractHtml(Document detailDocument, String html, String baseUri, String selector,  String removeTagsSelector) {
-//        try {
 //
-//            String detailHtml = detailDocument.select(selector).html();
-//
-//            detailDocument = removePredefineTags(detailDocument, removeTags);
-//            detailDocument = removeElementsByListSelectors(detailDocument, removeTagsSelector);
-//            detailDocument = removeNotUsedAttr(detailDocument);
-//            return detailDocument.html();
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//            return null;
-//        }
-//    }
 
     public static String extractText(Document document, String baseUri, String selector, String removeTagsSelector) {
         try {
@@ -152,7 +135,21 @@ public class HtmlExtractor {
             return new HashSet<>();
         }
     }
+    public static Set<String> extractImage(Document detailDocument, String baseUri, String removeTagsSelector) {
+        try {
+            //Document detailDocument = Jsoup.parse(html, baseUri, Parser.xmlParser());
+            detailDocument = removePredefineTags(detailDocument, removeTags);
+            detailDocument = removeElementsByListSelectors(detailDocument, removeTagsSelector);
+            detailDocument = removeNotUsedAttr(detailDocument);
+            return detailDocument.select("img").stream().map(element -> element.attr("abs:src")).collect(Collectors.toSet());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new HashSet<>();
+        }
+    }
+
     public static Set<String> extractCategory(Document document, Mapping mapping) {
+        LOGGER.info("extractCagtegory:{}", document.html());
         return document.select(mapping.getSelector()).stream().map(element -> element.text()).collect(Collectors.toSet());
     }
     public static Map<String, Set<String>> extractCategories(String html, String baseUri) {
@@ -164,6 +161,27 @@ public class HtmlExtractor {
             Set<String> categories = new HashSet<>();
             for(Mapping mapping:mappings) {
                 Set<String> data = extractCategory(detailDocument, mapping);
+                categories.addAll(data);
+            }
+            Map<String, Set<String>> result  = new HashMap<>();
+            result.put("categories", categories);
+            return result;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Map<String, Set<String>> result =  new HashMap<>();
+            result.put("categories", new HashSet<>());
+            return result;
+        }
+    }
+    public static Map<String, Set<String>> extractCategories(Document detailDocument, String baseUri) {
+        try {
+            MappingFactory mappingFactory = MappingFactory.instance();
+            String domain = getDomainName(baseUri);
+            List<Mapping> mappings = mappingFactory.getMappingsByDomainAndName(domain, "categories");
+            Set<String> categories = new HashSet<>();
+            for(Mapping mapping:mappings) {
+                Set<String> data = extractCategory(detailDocument, mapping);
+                LOGGER.info("data extractCategories========================: from mapping:{}, result:{}",mapping, data);
                 categories.addAll(data);
             }
             Map<String, Set<String>> result  = new HashMap<>();
@@ -209,6 +227,34 @@ public class HtmlExtractor {
             images.addAll(currentImages);
         }
         Map<String, Set<String>> categories = extractCategories(html, baseUri);
+        result.put("html", htmls);
+        result.put("articleBody", texts);
+        result.put("images", images);
+        result.put("categories", categories.get("categories"));
+
+        return result;
+    }
+    public static Map<String, Set<String>> extract(Document detailDocument, String baseUri) {
+        MappingFactory mappingFactory = MappingFactory.instance();
+        String domain = getDomainName(baseUri);
+        List<Mapping> mappings = mappingFactory.getMappingsByDomainAndName(domain, "html");
+        Map<String, Set<String>> result = new HashMap<>();
+        if (mappings == null || mappings.size() == 0) {
+            result.put("html", new HashSet<>());
+            result.put("articleBody", new HashSet<>());
+            result.put("images", new HashSet<>());
+            result.put("categories", new HashSet<>());
+            return result;
+        }
+
+        Set<String> htmls = mappings.stream().map(mapping -> extractHtml(detailDocument, baseUri, mapping.getSelector(), mapping.getRemoveTags())).collect(Collectors.toSet());
+        Set<String> texts = mappings.stream().map(mapping -> extractText(detailDocument, baseUri, mapping.getSelector(), mapping.getRemoveTags())).collect(Collectors.toSet());
+        Set<String> images = new HashSet<>();
+        for (Mapping mapping : mappings) {
+            Set<String> currentImages = extractImage(detailDocument, baseUri, mapping.getRemoveTags());
+            images.addAll(currentImages);
+        }
+        Map<String, Set<String>> categories = extractCategories(detailDocument, baseUri);
         result.put("html", htmls);
         result.put("articleBody", texts);
         result.put("images", images);
