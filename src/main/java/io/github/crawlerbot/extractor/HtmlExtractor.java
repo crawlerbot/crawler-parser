@@ -1,6 +1,4 @@
 package io.github.crawlerbot.extractor;
-
-import com.google.schemaorg.JsonLdSerializer;
 import io.github.crawlerbot.data.MappingFactory;
 import io.github.crawlerbot.model.Mapping;
 import org.jsoup.Jsoup;
@@ -21,7 +19,7 @@ public class HtmlExtractor {
     private static final Logger LOGGER = LoggerFactory.getLogger(HtmlExtractor.class);
     private static String removeTags = "a,iframe,script,em,div,style";
 
-    public static Document removeElements(Document detailDocument, String selector) {
+    public  Document removeElements(Document detailDocument, String selector) {
         try {
             Elements elements = detailDocument.select(selector);
             if (elements == null || elements.size() == 0) return detailDocument;
@@ -36,7 +34,7 @@ public class HtmlExtractor {
         }
     }
 
-    public static Document removeElementsByListSelectors(Document detailDocument, String selectors) {
+    public  Document removeElementsByListSelectors(Document detailDocument, String selectors) {
         if (selectors == null || selectors == "") return detailDocument;
         try {
             List<String> removeTags = Arrays.asList(selectors.split(","));
@@ -49,7 +47,7 @@ public class HtmlExtractor {
         }
     }
 
-    public static Document removePredefineTags(Document detailDocument, String tags) {
+    public  Document removePredefineTags(Document detailDocument, String tags) {
         if (tags == null || tags == "") return detailDocument;
         try {
             List<String> removeTags = Arrays.asList(tags.split(","));
@@ -63,7 +61,7 @@ public class HtmlExtractor {
 
     }
 
-    public static Document removeNotUsedAttr(Document detailDocument) {
+    public  Document removeNotUsedAttr(Document detailDocument) {
         List<String> attToRemove = new ArrayList<>();
         for (Element e : detailDocument.getAllElements()) {
             Attributes at = e.attributes();
@@ -80,7 +78,7 @@ public class HtmlExtractor {
     }
 
 
-    public static String extractHtml(Document document, String baseUri, String selector, String removeTagsSelector) {
+    public  String extractHtml(Document document, String baseUri, String selector, String removeTagsSelector) {
         try {
             String detailHtml = document.select(selector).html();
             Document detailDocument = Jsoup.parse(detailHtml, baseUri, Parser.xmlParser());
@@ -96,7 +94,7 @@ public class HtmlExtractor {
 
 //
 
-    public static String extractText(Document document, String baseUri, String selector, String removeTagsSelector) {
+    public  String extractText(Document document, String baseUri, String selector, String removeTagsSelector) {
         try {
             String detailHtml = document.select(selector).html();
             Document detailDocument = Jsoup.parse(detailHtml, baseUri, Parser.xmlParser());
@@ -110,7 +108,7 @@ public class HtmlExtractor {
         }
     }
 
-    public static String extractText(String html, String baseUri, String removeTagsSelector) {
+    public  String extractText(String html, String baseUri, String removeTagsSelector) {
         try {
             Document detailDocument = Jsoup.parse(html, baseUri, Parser.xmlParser());
             detailDocument = removePredefineTags(detailDocument, removeTags);
@@ -123,7 +121,7 @@ public class HtmlExtractor {
         }
     }
 
-    public static Set<String> extractImage(String html, String baseUri, String removeTagsSelector) {
+    public  Set<String> extractImage(String html, String baseUri, String removeTagsSelector) {
         try {
             Document detailDocument = Jsoup.parse(html, baseUri, Parser.xmlParser());
             detailDocument = removePredefineTags(detailDocument, removeTags);
@@ -135,9 +133,9 @@ public class HtmlExtractor {
             return new HashSet<>();
         }
     }
-    public static Set<String> extractImage(Document detailDocument, String baseUri, String removeTagsSelector) {
+    public  Set<String> extractImage(Document detailDocument, String baseUri, String removeTagsSelector) {
         try {
-            //Document detailDocument = Jsoup.parse(html, baseUri, Parser.xmlParser());
+
             detailDocument = removePredefineTags(detailDocument, removeTags);
             detailDocument = removeElementsByListSelectors(detailDocument, removeTagsSelector);
             detailDocument = removeNotUsedAttr(detailDocument);
@@ -148,11 +146,10 @@ public class HtmlExtractor {
         }
     }
 
-    public static Set<String> extractCategory(Document document, Mapping mapping) {
-        LOGGER.info("extractCagtegory:{}", document.html());
+    public  Set<String> extractCategory(Document document, Mapping mapping) {
         return document.select(mapping.getSelector()).stream().map(element -> element.text()).collect(Collectors.toSet());
     }
-    public static Map<String, Set<String>> extractCategories(String html, String baseUri) {
+    public  Map<String, Set<String>> extractCategories(String html, String baseUri) {
         try {
             MappingFactory mappingFactory = MappingFactory.instance();
             Document detailDocument = Jsoup.parse(html, baseUri, Parser.xmlParser());
@@ -173,7 +170,7 @@ public class HtmlExtractor {
             return result;
         }
     }
-    public static Map<String, Set<String>> extractCategories(Document detailDocument, String baseUri) {
+    public  Map<String, Set<String>> extractCategories(Document detailDocument, String baseUri) {
         try {
             MappingFactory mappingFactory = MappingFactory.instance();
             String domain = getDomainName(baseUri);
@@ -195,7 +192,7 @@ public class HtmlExtractor {
         }
     }
 
-    public static String getDomainName(String url) {
+    public  String getDomainName(String url) {
         try {
             URI uri = new URI(url);
             String domain = uri.getHost();
@@ -205,7 +202,7 @@ public class HtmlExtractor {
         }
     }
 
-    public static Map<String, Set<String>> extract(String html, String baseUri) {
+    public  Map<String, Set<String>> extract(String html, String baseUri) {
         Document detailDocument = Jsoup.parse(html, baseUri, Parser.xmlParser());
         MappingFactory mappingFactory = MappingFactory.instance();
         String domain = getDomainName(baseUri);
@@ -234,7 +231,7 @@ public class HtmlExtractor {
 
         return result;
     }
-    public static Map<String, Set<String>> extract(Document detailDocument, String baseUri) {
+    public  Map<String, Set<String>> extract(Document detailDocument, String baseUri) {
         MappingFactory mappingFactory = MappingFactory.instance();
         String domain = getDomainName(baseUri);
         List<Mapping> mappings = mappingFactory.getMappingsByDomainAndName(domain, "html");
@@ -247,14 +244,14 @@ public class HtmlExtractor {
             return result;
         }
 
-        Set<String> htmls = mappings.stream().map(mapping -> extractHtml(detailDocument, baseUri, mapping.getSelector(), mapping.getRemoveTags())).collect(Collectors.toSet());
-        Set<String> texts = mappings.stream().map(mapping -> extractText(detailDocument, baseUri, mapping.getSelector(), mapping.getRemoveTags())).collect(Collectors.toSet());
+        Set<String> htmls = mappings.stream().map(mapping -> extractHtml(Jsoup.parse(detailDocument.html()), baseUri, mapping.getSelector(), mapping.getRemoveTags())).collect(Collectors.toSet());
+        Set<String> texts = mappings.stream().map(mapping -> extractText(Jsoup.parse(detailDocument.html()), baseUri, mapping.getSelector(), mapping.getRemoveTags())).collect(Collectors.toSet());
         Set<String> images = new HashSet<>();
         for (Mapping mapping : mappings) {
-            Set<String> currentImages = extractImage(detailDocument, baseUri, mapping.getRemoveTags());
+            Set<String> currentImages = extractImage(Jsoup.parse(detailDocument.html()), baseUri, mapping.getRemoveTags());
             images.addAll(currentImages);
         }
-        Map<String, Set<String>> categories = extractCategories(detailDocument, baseUri);
+        Map<String, Set<String>> categories = extractCategories(Jsoup.parse(detailDocument.html()), baseUri);
         result.put("html", htmls);
         result.put("articleBody", texts);
         result.put("images", images);

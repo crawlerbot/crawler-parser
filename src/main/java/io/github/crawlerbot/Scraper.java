@@ -26,7 +26,7 @@ public class Scraper {
 
     private List<Extractor> extractors;
     private MetaExtractor metaExtractor = new MetaExtractor();
-
+    private HtmlExtractor htmlExtractor = new HtmlExtractor();
     public Scraper() {
         extractors = Arrays.asList(
                 new JsonLdExtractor(),
@@ -46,7 +46,7 @@ public class Scraper {
 
     public Map<String, Set<String>> extractData(URL url, int timeout) throws IOException, URISyntaxException {
         Document document = fetchByJsoup(url.toURI().toString(), timeout);
-        return HtmlExtractor.extract(document, url.toURI().toString());
+        return htmlExtractor.extract(document, url.toURI().toString());
     }
 
     public Map<String, Set<String>> extractMeta(URL url, int timeout) throws IOException, URISyntaxException {
@@ -117,7 +117,7 @@ public class Scraper {
                 .flatMap(extractor -> extractor.getThing(document).stream())
                 .collect(Collectors.toList());
         Map<String, Set<String>> meta = metaExtractor.extract(document);
-        Map<String, Set<String>> data = HtmlExtractor.extract(document, url.toURI().toString());
+        Map<String, Set<String>> data = htmlExtractor.extract(document, url.toURI().toString());
         WebData webData = new WebData();
         webData.setSemantic(semantic);
         webData.setMeta(meta);
@@ -125,12 +125,15 @@ public class Scraper {
         return webData;
     }
     public WebData extractHtmls(String  html, String url){
+
+
+
         Document detailDocument = Jsoup.parse(html, url, Parser.xmlParser());
         List<Map<String, Object>> semantic = extractors.stream()
                 .flatMap(extractor -> extractor.getThing(detailDocument).stream())
                 .collect(Collectors.toList());
         Map<String, Set<String>> meta = metaExtractor.extract(detailDocument);
-        Map<String, Set<String>> data = HtmlExtractor.extract(detailDocument, url);
+        Map<String, Set<String>> data = htmlExtractor.extract(detailDocument, url);
         WebData webData = new WebData();
         webData.setSemantic(semantic);
         webData.setMeta(meta);

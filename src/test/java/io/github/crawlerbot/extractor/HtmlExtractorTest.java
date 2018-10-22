@@ -19,6 +19,7 @@ import java.util.Set;
 
 class HtmlExtractorTest {
 
+    HtmlExtractor htmlExtractor = new HtmlExtractor();
     @BeforeEach
     void setUp() {
     }
@@ -32,7 +33,7 @@ class HtmlExtractorTest {
         File file = new File(getClass().getClassLoader().getResource("detail_news.html").getFile());
         String fileContent = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
 
-        Map<String, Set<String>> result = HtmlExtractor.extract(fileContent, "https://vnexpress.net/tin-tuc/thoi-su/hom-nay-quoc-hoi-nghe-gioi-thieu-nhan-su-de-bau-chu-tich-nuoc-3827210.html");
+        Map<String, Set<String>> result = htmlExtractor.extract(fileContent, "https://vnexpress.net/tin-tuc/thoi-su/hom-nay-quoc-hoi-nghe-gioi-thieu-nhan-su-de-bau-chu-tich-nuoc-3827210.html");
 
         File fileResult = new File(getClass().getClassLoader().getResource("detail_news_extractor.json").getFile());
         String fileResultContent = new String(Files.readAllBytes(Paths.get(fileResult.getAbsolutePath())));
