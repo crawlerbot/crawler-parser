@@ -30,5 +30,13 @@
     "configName": "",
     "attr": "html",
     "dataType": "STRING"
+  },
+  {
+    "name": "categories",
+    "selector": "ul.breadcrumb li a",
+    "host": "vnexpress.net",
+    "configName": "",
+    "attr": "text",
+    "dataType": "STRING"
   }
 ]
