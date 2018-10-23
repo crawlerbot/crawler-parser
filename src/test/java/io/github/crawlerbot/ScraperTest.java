@@ -128,7 +128,7 @@ public class ScraperTest {
         Scraper scraper = new Scraper();
         File file = new File(getClass().getClassLoader().getResource("detail_news.html").getFile());
         String fileContent = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
-        WebData webData = scraper.extractHtmls(fileContent,"http://kenh14.vn/nu-tai-xe-lai-bmw-gay-tai-nan-kinh-hoang-o-nga-tu-hang-xanh-giay-cao-got-bi-vuong-nen-toi-hoang-qua-dap-chan-ga-20181023091815792.chn" );
+        WebData webData = scraper.extractHtmls(fileContent,"https://www.msn.com/en-ie/news/newsireland/convicted-criminal-brian-rattigan-could-be-free-in-months-after-guilty-plea/ar-BBOLqDK?li=BBr5MK2" );
 
         File resultFile = new File(getClass().getClassLoader().getResource("extract_all_html_result.json").getFile());
         String resultFileContent = new String(Files.readAllBytes(Paths.get(resultFile.getAbsolutePath())));
