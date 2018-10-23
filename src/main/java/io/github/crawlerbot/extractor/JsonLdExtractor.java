@@ -2,14 +2,12 @@ package io.github.crawlerbot.extractor;
 
 import com.github.jsonldjava.core.JsonLdOptions;
 import com.github.jsonldjava.core.JsonLdProcessor;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import com.google.schemaorg.JsonLdSerializer;
 import com.google.schemaorg.JsonLdSyntaxException;
 import io.github.crawlerbot.model.Entity;
 import io.github.crawlerbot.utils.EscapeStringSerializer;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
