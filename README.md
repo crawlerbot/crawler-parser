@@ -8,6 +8,18 @@ crawler parser is a Java Libray that parse HTML page in order to extract schema.
 **Note that this library is still in active development and no stable version has been released yet. The API can change at anytime.**
 
 ## Quick Start
+
+Maven depedency 
+
+```
+ <depedency>
+   <groupId>io.github.crawlerbot</groupId>
+    <artifactId>crawler-parser</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+ </depedency>
+ 
+```
+
 You can check the content of the test to know how to use the library, basically you can parse an HTML page like this :
 ```java
 Scraper scraper = new Scraper();
